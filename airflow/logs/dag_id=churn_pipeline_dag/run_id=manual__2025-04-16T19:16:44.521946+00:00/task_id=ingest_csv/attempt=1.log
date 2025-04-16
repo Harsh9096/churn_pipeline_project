@@ -1,0 +1,111 @@
+[2025-04-16T19:16:47.386+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_pipeline_dag.ingest_csv manual__2025-04-16T19:16:44.521946+00:00 [queued]>
+[2025-04-16T19:16:47.391+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_pipeline_dag.ingest_csv manual__2025-04-16T19:16:44.521946+00:00 [queued]>
+[2025-04-16T19:16:47.391+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-04-16T19:16:47.402+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): ingest_csv> on 2025-04-16 19:16:44.521946+00:00
+[2025-04-16T19:16:47.407+0000] {standard_task_runner.py:57} INFO - Started process 88 to run task
+[2025-04-16T19:16:47.422+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'churn_pipeline_dag', 'ingest_csv', 'manual__2025-04-16T19:16:44.521946+00:00', '--job-id', '16', '--raw', '--subdir', 'DAGS_FOLDER/churn_pipeline_dag.py', '--cfg-path', '/tmp/tmp0jyf0ao6']
+[2025-04-16T19:16:47.427+0000] {standard_task_runner.py:85} INFO - Job 16: Subtask ingest_csv
+[2025-04-16T19:16:47.582+0000] {task_command.py:416} INFO - Running <TaskInstance: churn_pipeline_dag.ingest_csv manual__2025-04-16T19:16:44.521946+00:00 [running]> on host 1a98fe0809a9
+[2025-04-16T19:16:47.629+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='churn_pipeline_dag' AIRFLOW_CTX_TASK_ID='ingest_csv' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T19:16:44.521946+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-16T19:16:44.521946+00:00'
+[2025-04-16T19:16:47.644+0000] {logging_mixin.py:154} INFO - postgresql://airflow:airflow@postgres:5432/churn_dw
+[2025-04-16T19:16:47.700+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.InvalidSchemaName: schema "staging" does not exist
+LINE 2: CREATE TABLE staging.churn_raw (
+                     ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/usr/local/lib/python3.10/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/app/airflow/dags/churn_pipeline_dag.py", line 20, in ingest_csv_to_staging
+    df.to_sql('churn_raw', con=engine, schema='staging', index=False, if_exists='replace')
+  File "/usr/local/lib/python3.10/site-packages/pandas/util/_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "/usr/local/lib/python3.10/site-packages/pandas/core/generic.py", line 3008, in to_sql
+    return sql.to_sql(
+  File "/usr/local/lib/python3.10/site-packages/pandas/io/sql.py", line 788, in to_sql
+    return pandas_sql.to_sql(
+  File "/usr/local/lib/python3.10/site-packages/pandas/io/sql.py", line 1948, in to_sql
+    table = self.prep_table(
+  File "/usr/local/lib/python3.10/site-packages/pandas/io/sql.py", line 1852, in prep_table
+    table.create()
+  File "/usr/local/lib/python3.10/site-packages/pandas/io/sql.py", line 936, in create
+    self._execute_create()
+  File "/usr/local/lib/python3.10/site-packages/pandas/io/sql.py", line 922, in _execute_create
+    self.table.create(bind=self.pd_sql.con)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/sql/schema.py", line 962, in create
+    bind._run_ddl_visitor(ddl.SchemaGenerator, self, checkfirst=checkfirst)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2221, in _run_ddl_visitor
+    visitorcallable(self.dialect, self, **kwargs).traverse_single(element)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/sql/visitors.py", line 524, in traverse_single
+    return meth(obj, **kw)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/sql/ddl.py", line 899, in visit_table
+    self.connection.execute(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1385, in execute
+    return meth(self, multiparams, params, _EMPTY_EXECUTION_OPTS)
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/sql/ddl.py", line 80, in _execute_on_connection
+    return connection._execute_ddl(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1477, in _execute_ddl
+    ret = self._execute_context(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1953, in _execute_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 2134, in _handle_dbapi_exception
+    util.raise_(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/util/compat.py", line 211, in raise_
+    raise exception
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/base.py", line 1910, in _execute_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.10/site-packages/sqlalchemy/engine/default.py", line 736, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.InvalidSchemaName) schema "staging" does not exist
+LINE 2: CREATE TABLE staging.churn_raw (
+                     ^
+
+[SQL: 
+CREATE TABLE staging.churn_raw (
+	"CustomerID" BIGINT, 
+	"Age" BIGINT, 
+	"Gender" TEXT, 
+	"Tenure" BIGINT, 
+	"MonthlyCharges" FLOAT(53), 
+	"ContractType" TEXT, 
+	"InternetService" TEXT, 
+	"TotalCharges" FLOAT(53), 
+	"TechSupport" TEXT, 
+	"Churn" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/f405)
+[2025-04-16T19:16:47.744+0000] {taskinstance.py:1400} INFO - Marking task as UP_FOR_RETRY. dag_id=churn_pipeline_dag, task_id=ingest_csv, execution_date=20250416T191644, start_date=20250416T191647, end_date=20250416T191647
+[2025-04-16T19:16:47.753+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 16 for task ingest_csv ((psycopg2.errors.InvalidSchemaName) schema "staging" does not exist
+LINE 2: CREATE TABLE staging.churn_raw (
+                     ^
+
+[SQL: 
+CREATE TABLE staging.churn_raw (
+	"CustomerID" BIGINT, 
+	"Age" BIGINT, 
+	"Gender" TEXT, 
+	"Tenure" BIGINT, 
+	"MonthlyCharges" FLOAT(53), 
+	"ContractType" TEXT, 
+	"InternetService" TEXT, 
+	"TotalCharges" FLOAT(53), 
+	"TechSupport" TEXT, 
+	"Churn" TEXT
+)
+
+]
+(Background on this error at: https://sqlalche.me/e/14/f405); 88)
+[2025-04-16T19:16:47.795+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2025-04-16T19:16:47.806+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,15 @@
+name: churn_dw
+version: '1.0'
+
+config-version: 2
+
+profile: churn_dw
+
+target-path: "target"
+clean-targets: ["target"]
+
+model-paths: ["models"]
+
+models:
+  churn_dw:
+    +materialized: table

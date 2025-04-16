@@ -1,0 +1,7 @@
+{
+  "expectations": [
+    {"expect_column_values_to_not_be_null": "CustomerID"},
+    {"expect_column_values_to_be_between": {"column": "Age", "min_value": 18, "max_value": 100}},
+    {"expect_column_values_to_be_in_set": {"column": "Churn", "value_set": ["Yes", "No"]}}
+  ]
+}

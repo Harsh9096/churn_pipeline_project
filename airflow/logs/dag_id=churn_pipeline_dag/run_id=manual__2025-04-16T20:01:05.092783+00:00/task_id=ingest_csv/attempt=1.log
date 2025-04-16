@@ -1,0 +1,13 @@
+[2025-04-16T20:01:13.222+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_pipeline_dag.ingest_csv manual__2025-04-16T20:01:05.092783+00:00 [queued]>
+[2025-04-16T20:01:13.229+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_pipeline_dag.ingest_csv manual__2025-04-16T20:01:05.092783+00:00 [queued]>
+[2025-04-16T20:01:13.230+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-04-16T20:01:13.245+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): ingest_csv> on 2025-04-16 20:01:05.092783+00:00
+[2025-04-16T20:01:13.259+0000] {standard_task_runner.py:57} INFO - Started process 94 to run task
+[2025-04-16T20:01:13.266+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'churn_pipeline_dag', 'ingest_csv', 'manual__2025-04-16T20:01:05.092783+00:00', '--job-id', '25', '--raw', '--subdir', 'DAGS_FOLDER/churn_pipeline_dag.py', '--cfg-path', '/tmp/tmpslr469l6']
+[2025-04-16T20:01:13.268+0000] {standard_task_runner.py:85} INFO - Job 25: Subtask ingest_csv
+[2025-04-16T20:01:13.350+0000] {task_command.py:416} INFO - Running <TaskInstance: churn_pipeline_dag.ingest_csv manual__2025-04-16T20:01:05.092783+00:00 [running]> on host c867e9b9b431
+[2025-04-16T20:01:13.433+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='churn_pipeline_dag' AIRFLOW_CTX_TASK_ID='ingest_csv' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T20:01:05.092783+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-16T20:01:05.092783+00:00'
+[2025-04-16T20:01:13.577+0000] {python.py:194} INFO - Done. Returned value was: None
+[2025-04-16T20:01:13.585+0000] {taskinstance.py:1400} INFO - Marking task as SUCCESS. dag_id=churn_pipeline_dag, task_id=ingest_csv, execution_date=20250416T200105, start_date=20250416T200113, end_date=20250416T200113
+[2025-04-16T20:01:13.609+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 0
+[2025-04-16T20:01:13.634+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check

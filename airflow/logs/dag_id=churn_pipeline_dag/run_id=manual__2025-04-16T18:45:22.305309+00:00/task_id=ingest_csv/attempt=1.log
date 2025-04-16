@@ -1,0 +1,32 @@
+[2025-04-16T18:45:25.227+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: churn_pipeline_dag.ingest_csv manual__2025-04-16T18:45:22.305309+00:00 [queued]>
+[2025-04-16T18:45:25.232+0000] {taskinstance.py:1159} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: churn_pipeline_dag.ingest_csv manual__2025-04-16T18:45:22.305309+00:00 [queued]>
+[2025-04-16T18:45:25.232+0000] {taskinstance.py:1361} INFO - Starting attempt 1 of 2
+[2025-04-16T18:45:25.245+0000] {taskinstance.py:1382} INFO - Executing <Task(PythonOperator): ingest_csv> on 2025-04-16 18:45:22.305309+00:00
+[2025-04-16T18:45:25.250+0000] {standard_task_runner.py:57} INFO - Started process 96 to run task
+[2025-04-16T18:45:25.269+0000] {standard_task_runner.py:84} INFO - Running: ['airflow', 'tasks', 'run', 'churn_pipeline_dag', 'ingest_csv', 'manual__2025-04-16T18:45:22.305309+00:00', '--job-id', '7', '--raw', '--subdir', 'DAGS_FOLDER/churn_pipeline_dag.py', '--cfg-path', '/tmp/tmp0ed5g8qk']
+[2025-04-16T18:45:25.272+0000] {standard_task_runner.py:85} INFO - Job 7: Subtask ingest_csv
+[2025-04-16T18:45:25.348+0000] {task_command.py:416} INFO - Running <TaskInstance: churn_pipeline_dag.ingest_csv manual__2025-04-16T18:45:22.305309+00:00 [running]> on host 814002c1fcc7
+[2025-04-16T18:45:25.419+0000] {taskinstance.py:1662} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='churn_pipeline_dag' AIRFLOW_CTX_TASK_ID='ingest_csv' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T18:45:22.305309+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-16T18:45:22.305309+00:00'
+[2025-04-16T18:45:25.425+0000] {taskinstance.py:1937} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/site-packages/airflow/operators/python.py", line 192, in execute
+    return_value = self.execute_callable()
+  File "/usr/local/lib/python3.10/site-packages/airflow/operators/python.py", line 209, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/app/airflow/dags/churn_pipeline_dag.py", line 11, in ingest_csv_to_staging
+    df = pd.read_csv('/data/customer_churn_data.csv')
+  File "/usr/local/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 948, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/usr/local/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 611, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/usr/local/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 1448, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/usr/local/lib/python3.10/site-packages/pandas/io/parsers/readers.py", line 1705, in _make_engine
+    self.handles = get_handle(
+  File "/usr/local/lib/python3.10/site-packages/pandas/io/common.py", line 863, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: '/data/customer_churn_data.csv'
+[2025-04-16T18:45:25.454+0000] {taskinstance.py:1400} INFO - Marking task as UP_FOR_RETRY. dag_id=churn_pipeline_dag, task_id=ingest_csv, execution_date=20250416T184522, start_date=20250416T184525, end_date=20250416T184525
+[2025-04-16T18:45:25.463+0000] {standard_task_runner.py:104} ERROR - Failed to execute job 7 for task ingest_csv ([Errno 2] No such file or directory: '/data/customer_churn_data.csv'; 96)
+[2025-04-16T18:45:25.491+0000] {local_task_job_runner.py:228} INFO - Task exited with return code 1
+[2025-04-16T18:45:25.503+0000] {taskinstance.py:2778} INFO - 0 downstream tasks scheduled from follow-on schedule check
