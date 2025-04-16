@@ -6,6 +6,8 @@ An end-to-end ELT pipeline to ingest customer churn CSV data, transform, validat
 
 [ELT Pipeline]
 
+![aaaa](https://github.com/user-attachments/assets/3000c320-6cb3-4e93-aba8-9723b7983bfd)
+
 ---
 
 ## 🛠 Tech Stack
